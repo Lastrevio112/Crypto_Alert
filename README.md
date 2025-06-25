@@ -2,9 +2,13 @@
 
 # DESCRIPTION
 An ETL pipeline built in AWS that alerts you in real-time if any cryptocurrency had a major change in price in the past 3 days. It calls the CoinPaprika API and creates a view that returns alert messages in the cases where, in the last 3 days:
+
 -A coin changed its price by 10% or more in the last 24h
+
 -A coin changed its price by 7% or more in the last 12h
+
 -A coin changed its price by 5% or more in the last 4h
+
 -A coin changed its price by 3% or more in the last hour
 
 # 1. STORING THE API CALLS
