@@ -14,7 +14,9 @@ The lambda function crypto-project-dump-250coins-in-S3.py under the lambda_funct
 # 2. CREATING THE RAW DATA TABLES
 
 A database was created in Athena called crypto_project that contains two objects:
+
 a). The raw_prices table
+
 b). The raw_prices_with_ts view
 
 The script for the creation of both of those objects can be found in the Athena folder in this repo. The raw_prices table appends all the .csv files to create one giant SQL table with two columns. The raw_prices_with_ts view takes all the data from the raw_prices table and adds a third column, the timestamp, describing the time at which that cryptocurrency had that certain price.
@@ -24,7 +26,9 @@ The script for the creation of both of those objects can be found in the Athena 
 A new database was created in Athena called crypto_star_schema composed of multiple views and tables.
 
 a). D_Coin is a dimension table with two columns containing each of the 250 cryptocurrencies and a unique id for each of them. This table is populated by a Glue job that is triggered on demand (and which I avoid to trigger as much as possible since glue jobs are extremely expensive... if the price of AWS was not a problem I would've done the entire project in Glue).
+
 b). D_Time is a time look-up dimension table generated in Athena that contains every single date between 2020-01-01 and 2060-12-31 with its respective day, month_no, year and month_text.
+
 c). F_Price is the main fact table of this star schema, which is actually a view, since it's cheaper to maintain this way. It contains a unique ID, the id of the coin (FK to D_Coin), the date (FK to D_Time), a price in USD and the hour, minute and timestamp at which that particular coin had a particular price.
 
 # 4. ADDITIONAL VIEWS AND TABLES
